@@ -20,8 +20,14 @@ python ip2geo-py.py
 + Country Codes are grouped by: Europe, North America, South America, Asia, Australia (Oceanic), and Antartica.
 + Country Codes are arcoding to the ISO 3166-1 alpha-2 standard.
 + Windows and \*Nix support.
++ Configuration file for targeted database (to be added as an argument)
 
 #### Future Plans:
++ Passing arguments, such as:
+ + Alternate host.
+ + File containing IPs
+ + Output to a specified log name.
+ + Toggle Interactive mode
 + Interactive console environment for better statistics.
 + Automatic journal parsing for \*nix users to collect IPs.
 + Windows log parsing? Will nee
