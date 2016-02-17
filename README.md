@@ -4,8 +4,8 @@ After having serveral hundreds of thousands of brute-force attempts on my server
 ### Installation:
 ```bash
 # Git way of installation:
-git clone https://github.com/0x1p2/ip2geo-pu.git
-cd ip2geo-pu/
+git clone https://github.com/0x1p2/ip2geo-py.git
+cd ip2geo-py/
 python ip2geo.py
 ```
 ```bash
