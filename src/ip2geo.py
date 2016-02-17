@@ -1,8 +1,24 @@
+import os
 import urllib.request
 import json
-cc = {}
+from configparser import ConfigParser
 
-# http://www.europeancuisines.com/Europe-European-Two-Letter-Country-Code-Abbreviations
+def conf_read():
+    ''' Loads the configuration file if one is discovered. This is implemented 
+    because I use a local database instead of the freegeoip.net so I can make 
+    frequent queries for testing. '''
+    if os.path.exists('config.ini'):
+        print("Loading configuration file...")
+        config = ConfigParser()
+        config.read('config.ini')
+        return config
+    else:
+        return 0
+
+
+cc = {} # Holds a KEY:VALUE for COUNTRY_CODE:AMOUNT. Amount will be the number of discovered attempts.
+
+# Country codes obtained from: http://www.countrycallingcodes.com/iso-country-codes/
 eu_codes = [ 
         "AL", "AD", "AT", "BY", "BE", "BA", "BG", "HR", "CY",
         "CZ", "DK", "EE", "FO", "FI", "FR", "DE", "GI", "GR", 
@@ -50,11 +66,17 @@ au_cntr = 0
 aq_cntr = 0
 unk_cntr = 0
 
+if os.path.exists("config.ini"):
+    config = conf_read()
+    host = config['URL']['host_db']
+else:
+    host = "http://freegeoip.net/"
+
 with open('attackers.txt', 'r') as fd:
     file_data = fd.readlines()
 
 for IP in file_data:
-    url = "http://localhost/json/" + IP
+    url = host + "json/" + IP
     response = urllib.request.urlopen(url).read()
     data = response.decode()
     response  = json.loads(data)
