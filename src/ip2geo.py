@@ -137,7 +137,7 @@ class Lookup:
 
 
     def printf(self):
-        print("-" * 15)
+        print("-" * 13)
         for key, value in self.reg.items():     # Could be changed to self.cc
             print("{:>5} | {:<5}".format(key, value))
 
