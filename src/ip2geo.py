@@ -1,6 +1,7 @@
 import os
 import sys
 import urllib.request
+from urllib.error import HTTPError
 import json
 import argparse
 import configparser
@@ -90,12 +91,22 @@ class Lookup:
         count = 0
         print("Starting query...")
         for IP in self.IPs:
-            url = self.host + "json/" + IP
             count += 1
-            sent = urllib.request.urlopen(url).read()
-            data = sent.decode()
-            info = json.loads(data)
-            self.parse(info)
+            print("[%d] [ %s ]" % (count, IP.strip()))
+            url = self.host + "json/" + IP.strip()
+            try:
+                sent = urllib.request.urlopen(url)
+                if sent.getcode() == 404 or sent.getcode() == 503 or sent.getcode() == 403:
+                    print("%s is not availible, use a different resource/db" % self.host)
+                    raise HTTPError
+                else:
+                    text = sent.read()
+                    data = text.decode()
+                    info = json.loads(data)
+                    self.parse(info)
+            except HTTPError as err:
+                print("  [ ERROR ]  IO Error: [Code: %s, %s]" % (err.errno, err.strerror))
+                break
 
 
     def parse(self, info):
@@ -126,6 +137,7 @@ class Lookup:
 
 
     def printf(self):
+        print("-" * 15)
         for key, value in self.reg.items():     # Could be changed to self.cc
             print("{:>5} | {:<5}".format(key, value))
 
