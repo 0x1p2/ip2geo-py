@@ -22,6 +22,13 @@ python ip2geo-py.py
 + Windows and \*Nix support.
 + Configuration file for targeted database (to be added as an argument)
 
+#### Config File Example:
+config.ini
+```bash
+ [URL]
+ host_db = http://db.0x1p2.com/
+```
+
 #### Future Plans:
 + Passing arguments, such as:
  + Alternate host.
