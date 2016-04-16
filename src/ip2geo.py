@@ -9,7 +9,7 @@ import configparser
 
 class Lookup:
     def __init__(self, args):
-        self.url = args.url
+        self.url = args.url             # Assigns values from arguments.
         self.verbose = args.verbose
         self.FILE = args.FILE
 
@@ -68,6 +68,10 @@ class Lookup:
             return 0
 
     def set_host(self):
+        ''' Sets the databasee to use for the queries. Defaults to freegeoip, if
+        a configuration file is present then it will use the one specified. See 
+        exmaple configuration file at: https://github.com/0x1p2/ip2geo-py
+        under "Config File Example"'''
         if not self.url:
             if not os.path.exists("config.ini"):
                 self.host = "http://freegeoip.net/"
@@ -80,7 +84,7 @@ class Lookup:
 
 
     def set_list(self):
-        if not os.path.exists(self.FILE):
+        if not os.path.exists(self.FILE):           # Check for valid file of list of IPs.
             print("No file %s found." % self.FILE)
             sys.exit()            
         else:
