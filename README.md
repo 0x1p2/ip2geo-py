@@ -26,7 +26,7 @@ python ip2geo-py.py
 config.ini
 ```bash
  [URL]
- host_db = http://db.0x1p2.com/
+ host_db = http://0x1p2.com/
 ```
 
 #### Future Plans:
